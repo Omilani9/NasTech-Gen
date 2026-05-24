@@ -13,176 +13,243 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #f5f5f5;
-            color: #000000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #f0f2f5;
+            color: #1a1a1a;
+            padding: 24px;
             min-height: 100vh;
-            padding: 20px;
         }
 
         .admin-dashboard {
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .container {
-            max-width: 100%;
-        }
-
-        .header {
+        /* Header */
+        .dashboard-header {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .refresh-btn {
-            background: #8B2E2E;
-            color: white;
+        .title-section h1 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .title-section p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .stats-card {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stats-card span {
+            color: #8B2E2E;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Buttons */
+        .btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.85rem;
             cursor: pointer;
-            width: 100%;
-            max-width: 160px;
+            transition: all 0.2s;
         }
 
-        .stats {
-            background: white;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            border: 1px solid #eee;
+        .btn-refresh {
+            background: #8B2E2E;
+            color: white;
         }
 
-        .stats span {
-            color: #8B2E2E;
-            font-weight: bold;
-            font-size: 1rem;
+        .btn-refresh:hover {
+            background: #6b2323;
         }
 
+        .btn-logout {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #5a6268;
+        }
+
+        .btn-accept {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-accept:hover {
+            background: #059669;
+        }
+
+        .btn-reject {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reject:hover {
+            background: #dc2626;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Table */
         .table-wrapper {
-            overflow-x: auto;
-            border-radius: 16px;
             background: white;
-            margin-top: 16px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            margin-top: 20px;
         }
 
         .orders-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.75rem;
-            min-width: 800px;
-        }
-
-        .orders-table th, .orders-table td {
-            padding: 10px 8px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+            font-size: 0.8rem;
         }
 
         .orders-table th {
-            background: #f8f8f8;
+            background: #f8f9fa;
+            padding: 14px 12px;
+            text-align: left;
             font-weight: 600;
-            font-size: 0.7rem;
-            text-transform: uppercase;
+            color: #1a1a1a;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        .accept-btn {
-            background: #8B2E2E;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-right: 5px;
+        .orders-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #1a1a1a;
         }
 
-        .reject-btn {
-            background: #dc2626;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
+        .orders-table tr:hover {
+            background: #fafafa;
         }
 
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .status-pending-payment {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-pending-verification {
+            background: #fed7aa;
+            color: #c2410c;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* Delivery badges */
         .delivery-badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 30px;
-            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
-        .delivery-pickup { background: #3b82f6; color: white; }
-        .delivery-within { background: #22c55e; color: white; }
-        .delivery-interstate { background: #f97316; color: white; }
-
-        .status-pending-payment { color: #eab308; font-weight: 600; }
-        .status-pending-verification { color: #f97316; font-weight: 600; }
-        .status-completed { color: #22c55e; font-weight: 600; }
-        .status-rejected { color: #dc2626; font-weight: 600; }
+        .delivery-pickup { background: #dbeafe; color: #2563eb; }
+        .delivery-within { background: #d1fae5; color: #059669; }
+        .delivery-interstate { background: #fed7aa; color: #c2410c; }
 
         .no-orders {
             text-align: center;
-            padding: 40px;
+            padding: 60px;
             color: #888;
-            background: white;
-            border-radius: 16px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
-        .action-buttons {
+        /* Action bar */
+        .action-bar {
             display: flex;
-            gap: 5px;
+            gap: 12px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
-        @media (min-width: 768px) {
-            .admin-dashboard { padding: 30px; }
-            .header { flex-direction: row; justify-content: space-between; align-items: center; }
-            .orders-table { font-size: 0.8rem; min-width: auto; }
-            .orders-table th, .orders-table td { padding: 12px; }
+        @media (max-width: 768px) {
+            body { padding: 16px; }
+            .dashboard-header { flex-direction: column; align-items: flex-start; }
+            .orders-table th, .orders-table td { padding: 8px; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Admin Dashboard -->
-    <div class="admin-dashboard" id="adminDashboard">
-        <div class="container">
-            <div class="header">
-                <div>
-                    <h1>Payment Dashboard</h1>
-                    <p style="color: #666; font-size: 0.8rem;">Manage & verify orders</p>
-                </div>
-                <div class="stats">
-                    📊 Total: <span id="orderCount">0</span>
-                </div>
+    <div class="admin-dashboard">
+        <div class="dashboard-header">
+            <div class="title-section">
+                <h1>📋 Payment Dashboard</h1>
+                <p>Manage & verify customer orders</p>
             </div>
-            
-            <button class="refresh-btn" onclick="loadOrders()">🔄 Refresh Orders</button>
-            <button class="refresh-btn" style="background:#666; margin-left:10px;" onclick="logout()">🚪 Logout</button>
-            
-            <div id="ordersTable">
-                <div class="no-orders">Loading orders...</div>
+            <div class="stats-card">
+                📊 Total Orders: <span id="orderCount">0</span>
             </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn btn-refresh" onclick="loadOrders()">🔄 Refresh Orders</button>
+            <button class="btn btn-logout" onclick="logout()">🚪 Logout</button>
+        </div>
+
+        <div id="ordersTable">
+            <div class="no-orders">Loading orders...</div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        // ============ SUPABASE CONFIG ============
         const SUPABASE_URL = 'https://tejpkjimizzbhylwzldm.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_c_eyzM8vbpkZB41rDouMyQ_vIEQox3v';  // ← Replace with your real anon key
+        const SUPABASE_KEY = 'sb_publishable_c_eyzM8vbpkZB41rDouMyQ_vIEQox3v';
         const EMAILJS_SERVICE_ID = 'service_wrdt5bi';
         const EMAILJS_TEMPLATE_CUSTOMER = 'template_wqlx72m';
         const EMAILJS_PUBLIC_KEY = 'jw2pFeW1Jg6MySOyb';
@@ -190,18 +257,16 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         emailjs.init(EMAILJS_PUBLIC_KEY);
         
-        // Check authentication
         async function checkAuth() {
             const { data, error } = await supabaseClient.auth.getUser();
             if (error || !data.user) {
-                window.location.href = 'login.html';
+                window.location.href = 'admin-login.html';
             }
         }
         
-        // Logout function
         async function logout() {
             await supabaseClient.auth.signOut();
-            window.location.href = 'login.html';
+            window.location.href = 'admin-login.html';
         }
         
         async function sendCustomerEmail(orderNumber, customerName, customerAddress, customerEmail, productName, total, deliveryType) {
@@ -215,44 +280,66 @@
 
         async function loadOrders() {
             const { data: orders, error } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
-            if (error) { document.getElementById('ordersTable').innerHTML = '<div class="no-orders">❌ Error</div>'; return; }
+            if (error) { document.getElementById('ordersTable').innerHTML = '<div class="no-orders">❌ Error loading orders</div>'; return; }
             if (!orders || orders.length === 0) { document.getElementById('ordersTable').innerHTML = '<div class="no-orders">📭 No orders yet</div>'; document.getElementById('orderCount').innerHTML = '0'; return; }
             
             const pendingCount = orders.filter(o => o.status === 'pending_verification').length;
             document.getElementById('orderCount').innerHTML = `${orders.length} ${pendingCount > 0 ? `(${pendingCount} pending)` : ''}`;
             
-            let html = `<div class="table-wrapper"><table class="orders-table"><thead><tr>
-                <th>Order #</th><th>Date</th><th>Total</th><th>Items</th><th>Customer</th><th>Phone</th><th>Email</th><th>Delivery</th><th>Address</th><th>Status</th><th>Action</th>
-            </tr></thead><tbody>`;
+            let html = `<div class="table-wrapper"><table class="orders-table"><thead>
+                <tr><th>Order #</th><th>Date</th><th>Total</th><th>Items</th><th>Customer</th><th>Phone</th><th>Email</th><th>Delivery</th><th>Address</th><th>Status</th><th>Action</th></tr>
+            </thead><tbody>`;
             
             for (const o of orders) {
-                let deliveryBadge = o.delivery_type === 'pickup' ? '<span class="delivery-badge delivery-pickup">🏢 Pickup</span>' : o.delivery_type === 'within_state' ? '<span class="delivery-badge delivery-within">🚐 Within</span>' : o.delivery_type === 'interstate' ? '<span class="delivery-badge delivery-interstate">🚛 Interstate</span>' : '-';
+                let deliveryBadge = o.delivery_type === 'pickup' ? '<span class="delivery-badge delivery-pickup">🏢 Pickup</span>' : o.delivery_type === 'within_state' ? '<span class="delivery-badge delivery-within">🚐 Within Lagos</span>' : o.delivery_type === 'interstate' ? '<span class="delivery-badge delivery-interstate">🚛 Interstate</span>' : '-';
                 
                 let statusText = '', statusClass = '', actionButton = '';
-                if (o.status === 'pending_payment') { statusText = 'Awaiting Payment'; statusClass = 'status-pending-payment'; actionButton = '<span style="color:#888;">Waiting</span>'; }
+                if (o.status === 'pending_payment') { 
+                    statusText = 'Awaiting Payment'; 
+                    statusClass = 'status-pending-payment'; 
+                    actionButton = '<span style="color:#888;">⏳ Waiting</span>'; 
+                }
                 else if (o.status === 'pending_verification') {
-                    statusText = 'Pending Verification'; statusClass = 'status-pending-verification';
+                    statusText = 'Pending Verification'; 
+                    statusClass = 'status-pending-verification';
                     let productName = 'Generator';
                     try { const items = JSON.parse(o.items); if (items.length) productName = items[0].name; } catch(e) {}
                     actionButton = `<div class="action-buttons">
-                        <button class="accept-btn" onclick="verifyOrder('${o.order_number.replace(/'/g, "\\'")}', '${(o.customer_name || '').replace(/'/g, "\\'")}', '${(o.customer_address || '').replace(/'/g, "\\'")}', '${(o.customer_email || '').replace(/'/g, "\\'")}', '${productName.replace(/'/g, "\\'")}', ${o.total || 0}, '${(o.delivery_type || '').replace(/'/g, "\\'")}')">✅ Accept</button>
-                        <button class="reject-btn" onclick="rejectOrder('${o.order_number.replace(/'/g, "\\'")}', '${(o.customer_email || '').replace(/'/g, "\\'")}')">❌ Reject</button>
+                        <button class="btn-accept" onclick="verifyOrder('${o.order_number.replace(/'/g, "\\'")}', '${(o.customer_name || '').replace(/'/g, "\\'")}', '${(o.customer_address || '').replace(/'/g, "\\'")}', '${(o.customer_email || '').replace(/'/g, "\\'")}', '${productName.replace(/'/g, "\\'")}', ${o.total || 0}, '${(o.delivery_type || '').replace(/'/g, "\\'")}')">✓ Accept</button>
+                        <button class="btn-reject" onclick="rejectOrder('${o.order_number.replace(/'/g, "\\'")}', '${(o.customer_email || '').replace(/'/g, "\\'")}')">✗ Reject</button>
                     </div>`;
                 }
-                else if (o.status === 'completed') { statusText = 'Completed'; statusClass = 'status-completed'; actionButton = '<span style="color:#22c55e;">✓ Done</span>'; }
-                else if (o.status === 'rejected') { statusText = 'Rejected'; statusClass = 'status-rejected'; actionButton = '<span style="color:#dc2626;">✗ Rejected</span>'; }
-                else { statusText = o.status; actionButton = '-'; }
+                else if (o.status === 'completed') { 
+                    statusText = 'Completed'; 
+                    statusClass = 'status-completed'; 
+                    actionButton = '<span style="color:#059669;">✓ Verified</span>'; 
+                }
+                else if (o.status === 'rejected') { 
+                    statusText = 'Rejected'; 
+                    statusClass = 'status-rejected'; 
+                    actionButton = '<span style="color:#dc2626;">✗ Rejected</span>'; 
+                }
+                else { 
+                    statusText = o.status; 
+                    actionButton = '-'; 
+                }
                 
                 let itemsText = '-';
                 try { const items = JSON.parse(o.items); itemsText = items.map(i => i.name).join('<br>'); } catch(e) {}
                 const date = o.created_at ? new Date(o.created_at).toLocaleDateString() : '-';
                 
                 html += `<tr>
-                    <td><strong>${o.order_number}</strong></td><td>${date}</td><td>₦${(o.total || 0).toLocaleString()}</td>
-                    <td style="max-width:180px">${itemsText}</td><td><strong>${o.customer_name || '-'}</strong></td>
-                    <td>${o.customer_phone || '-'}</td><td>${o.customer_email || '-'}</td>
-                    <td style="text-align:center">${deliveryBadge}</td><td style="max-width:200px">${o.customer_address || '-'}</td>
-                    <td class="${statusClass}">${statusText}</td><td>${actionButton}</td>
+                    <td><strong>${o.order_number}</strong></td>
+                    <td>${date}</td>
+                    <td>₦${(o.total || 0).toLocaleString()}</td>
+                    <td style="max-width:180px">${itemsText}</td>
+                    <td><strong>${o.customer_name || '-'}</strong></td>
+                    <td>${o.customer_phone || '-'}</td>
+                    <td>${o.customer_email || '-'}</td>
+                    <td style="text-align:center">${deliveryBadge}</td>
+                    <td style="max-width:200px">${o.customer_address || '-'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>${actionButton}</td>
                 </tr>`;
             }
             html += `</tbody></table></div>`;
@@ -271,7 +358,7 @@
             if (!confirm(`Reject order ${orderNumber}?`)) return;
             const { error } = await supabaseClient.from('orders').update({ status: 'rejected' }).eq('order_number', orderNumber);
             if (error) alert('Error: ' + error.message);
-            else { alert('Order rejected'); loadOrders(); }
+            else { alert('❌ Order rejected'); loadOrders(); }
         }
         
         async function initAdmin() {
@@ -280,7 +367,6 @@
             setInterval(loadOrders, 15000);
         }
         
-        // Start the admin panel
         initAdmin();
     </script>
 </body>
