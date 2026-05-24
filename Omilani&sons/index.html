@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NasTech - Diesel Engine Company</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: white;
+            color: black;
+            line-height: 1.4;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .splash-content {
+            max-width: 90%;
+            padding: 20px;
+        }
+
+        .splash-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .splash-subtitle {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 32px;
+        }
+
+        .shop-now-splash {
+            background: #8B2E2E;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 220px;
+        }
+
+        /* Mobile fix for splash title */
+        @media (max-width: 480px) {
+            .splash-title {
+                font-size: 1.3rem;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .splash-title {
+                font-size: 1.1rem;
+                white-space: nowrap;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+        }
+
+        /* Top Bar - Hidden */
+        .top-bar {
+            display: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #8B2E2E;
+        }
+
+        .logo span {
+            color: black;
+            font-weight: 400;
+        }
+
+        .menu-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background: #8B2E2E;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transition: left 0.3s;
+            padding-top: 20px;
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .side-menu button {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            color: black;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .side-menu .contact-info-menu {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #f8f8f8;
+            margin-top: 10px;
+        }
+
+        .side-menu .contact-info-menu p {
+            font-size: 0.8rem;
+            margin: 6px 0;
+            color: #333;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .menu-overlay.open {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #fafafa;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 span {
+            color: #8B2E2E;
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+        .explore-btn {
+            background: #8B2E2E;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 40px 16px;
+            max-width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 28px;
+            font-size: 0.8rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #8B2E2E;
+            border-color: #8B2E2E;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 480px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .product-info {
+            padding: 14px;
+        }
+
+        .product-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-brand {
+            font-size: 0.65rem;
+            color: #8B2E2E;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+
+        .product-features {
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .add-to-cart-btn, .whatsapp-btn {
+            padding: 8px;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .add-to-cart-btn {
+            background: #8B2E2E;
+            color: white;
+            border: none;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 380px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1002;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 1.2rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .cart-item-price {
+            color: #8B2E2E;
+            font-size: 0.75rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cart-item-controls input {
+            width: 45px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .cart-footer {
+            padding: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: right;
+            margin-bottom: 12px;
+        }
+
+        .pay-now-btn {
+            background: #8B2E2E;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .cart-overlay.open {
+            display: block;
+        }
+
+        /* About & Contact Sections */
+        .about-section, .contact-section {
+            padding: 40px 16px;
+        }
+
+        .about-card, .contact-card {
+            background: #f9f9f9;
+            padding: 24px;
+            border-radius: 20px;
+        }
+
+        .about-card h2, .contact-card h2 {
+            color: #8B2E2E;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .about-card p, .contact-card p {
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .service-list li {
+            font-size: 0.85rem;
+            padding: 6px 0;
+        }
+
+        .back-home-btn {
+            background: #eee;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 20px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-body h2 {
+            font-size: 1.2rem;
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-title">WELCOME TO NASTECH</div>
+            <div class="splash-subtitle">Explore our Generator!</div>
+            <button class="shop-now-splash" id="shopNowSplashBtn">Shop Now →</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+
+        <!-- Navbar -->
+        <div class="navbar">
+            <button class="menu-btn" id="menuBtn">☰ Menu</button>
+            <div class="logo">NasTech<span> Power</span></div>
+            <div class="nav-links">
+                <div class="cart-icon" onclick="openCartSidebar()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side Menu with Contact Info -->
+        <div class="side-menu" id="sideMenu">
+            <button onclick="showHome(); closeMenu();">🏠 Home</button>
+            <button onclick="showProducts(); closeMenu();">🛒 Shop</button>
+            <button onclick="showAbout(); closeMenu();">📖 About Us</button>
+            <button onclick="showContact(); closeMenu();">📞 Contact</button>
+            <div class="contact-info-menu">
+                <p>📞 +234 913 418 6826</p>
+                <p>✉️ sales@nastech.com</p>
+                <p>📍 Lagos, Nigeria</p>
+            </div>
+        </div>
+        <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+        <!-- Cart Sidebar -->
+        <div class="cart-overlay" id="cartOverlay" onclick="closeCartSidebar()"></div>
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <button class="close-cart" onclick="closeCartSidebar()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <p style="text-align:center; color:#999; padding:20px;">Cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total" id="cartTotalDisplay">Total: ₦0</div>
+                <button class="pay-now-btn" id="cartPayNowBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Home Section -->
+        <div id="homeSection">
+            <div class="hero">
+                <h1>Power You <span>Can Rely On</span></h1>
+                <p>15KVA - 1000KVA | Diesel Generators</p>
+                <button class="explore-btn" onclick="showProducts()">Shop Now →</button>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="productsSection" class="products-section hidden">
+            <div class="section-title">Our Generators</div>
+            <div class="section-subtitle">Premium Diesel Generators</div>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="below60">Below 60KVA</button>
+                <button class="filter-btn" data-filter="above60">60KVA & Above</button>
+            </div>
+
+            <div class="products-grid" id="productsGrid"></div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="back-home-btn" onclick="showHome()">← Back to Home</button>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="aboutSection" class="about-section hidden">
+            <div style="text-align: center;">
+                <button class="back-home-btn" onclick="showHome()">← Back to Home</button>
+            </div>
+            <div class="about-card">
+                <h2>About NasTech</h2>
+                <p>Since 1995, NasTech has been Nigeria's trusted name in premium diesel generator solutions.</p>
+                <p>✅ Brand New Generators - 15KVA to 1000KVA+<br>✅ 2-year warranty<br>✅ Competitive Pricing<br>✅ Fast Delivery within Lagos</p>
+                <p><strong>Repair Services:</strong><br>Complete Overhaul | Routine Maintenance | 24/7 Emergency Repairs</p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contactSection" class="contact-section hidden">
+            <div style="text-align: center;">
+                <button class="back-home-btn" onclick="showHome()">← Back to Home</button>
+            </div>
+            <div class="contact-card">
+                <h2>Contact Us</h2>
+                <p><strong>📍 Location:</strong> Lagos, Nigeria</p>
+                <p><strong>📞 Phone:</strong> +234 913 418 6826</p>
+                <p><strong>✉️ Email:</strong> sales@nastech.com</p>
+                <p><strong>⏰ Hours:</strong> Mon-Sat: 8AM-6PM</p>
+                <button class="whatsapp-btn" style="margin-top: 16px; width: auto; padding: 10px 24px;" onclick="openWhatsApp()">💬 Chat on WhatsApp</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 NasTech | Diesel Engine Company | Sales & Repairs</p>
+        </footer>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img id="modalImg" class="modal-img" src="" alt="Product">
+            <div class="modal-body">
+                <h2 id="modalTitle"></h2>
+                <p id="modalBrand" style="color:#8B2E2E; font-weight:bold;"></p>
+                <p id="modalPrice" style="font-size:1.3rem; font-weight:bold;"></p>
+                <ul id="modalSpecs" style="list-style: none; margin: 12px 0;"></ul>
+                <button class="whatsapp-btn" id="modalWhatsappBtn">💬 Chat on WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const products = [
+            { id: 1, name: "Diesel 20KVA", brand: "DIESEL", price: "₦3,000,000", kva: 20, image: "images/mikano-20kva.jpg", features: "Silent Type", fullSpecs: ["20KVA / 16KW", "80L Fuel Tank", "8-10hr Runtime", "2 Year Warranty"] },
+            { id: 2, name: "Diesel 30KVA", brand: "DIESEL", price: "₦4,000,000", kva: 30, image: "images/mikano-30kva.jpg", features: "Silent Type", fullSpecs: ["30KVA / 24KW", "100L Fuel Tank", "Digital Control", "2 Year Warranty"] },
+            { id: 3, name: "Diesel 60KVA", brand: "DIESEL", price: "₦7,000,000", kva: 60, image: "images/mikano-60kva.jpg", features: "Auto Start", fullSpecs: ["60KVA / 48KW", "150L Fuel Tank", "AVR Included", "2 Year Warranty"] },
+            { id: 4, name: "Diesel 100KVA", brand: "DIESEL", price: "₦10,000,000", kva: 100, image: "images/mikano-100kva.jpg", features: "Commercial", fullSpecs: ["100KVA / 80KW", "300L Fuel Tank", "Remote Monitoring"] },
+            { id: 5, name: "Diesel 150KVA", brand: "DIESEL", price: "₦13,000,000", kva: 150, image: "images/mikano-150kva.jpg", features: "Industrial", fullSpecs: ["150KVA / 120KW", "400L Fuel Tank", "AMF/ATS Panel"] }
+        ];
+
+        let currentFilter = "all";
+        let currentProductForModal = null;
+        let cart = [];
+
+        const supabaseClient = supabase.createClient(
+            'https://tejpkjimizzbhylwzldm.supabase.co',
+            'sb_publishable_c_eyzM8vbpkZB41rDouMyQ_vIEQox3v'
+        );
+
+        // Splash Screen
+        document.getElementById('shopNowSplashBtn').onclick = () => {
+            document.getElementById('splashScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        };
+
+        // Cart Functions
+        function loadCart() {
+            const saved = localStorage.getItem('nastech_cart');
+            cart = saved ? JSON.parse(saved) : [];
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('nastech_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function addToCart(product) {
+            const existing = cart.find(item => item.id === product.id);
+            existing ? existing.quantity++ : cart.push({ ...product, quantity: 1 });
+            saveCart();
+            openCartSidebar();
+        }
+
+        function updateQuantity(id, newQty) {
+            if (newQty < 1) return;
+            const item = cart.find(i => i.id === id);
+            if (item) { item.quantity = newQty; saveCart(); }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+        }
+
+        function getCartTotal() {
+            return cart.reduce((sum, item) => sum + (parseFloat(item.price.replace(/[^0-9]/g, '')) * item.quantity), 0);
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalDisplay = document.getElementById('cartTotalDisplay');
+            const countBadge = document.getElementById('cartCount');
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            countBadge.textContent = itemCount;
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#999; padding:20px;">Cart is empty</p>';
+                totalDisplay.innerHTML = 'Total: ₦0';
+                return;
+            }
+            
+            let html = '';
+            cart.forEach(item => {
+                const numericPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
+                const itemTotal = numericPrice * item.quantity;
+                html += `<div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} × ${item.quantity}</div>
+                        <div>Total: ₦${itemTotal.toLocaleString()}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${item.id}, parseInt(this.value))">
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">✕</button>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+            totalDisplay.innerHTML = `Total: ₦${getCartTotal().toLocaleString()}`;
+        }
+
+        function openCartSidebar() {
+            document.getElementById('cartSidebar').classList.add('open');
+            document.getElementById('cartOverlay').classList.add('open');
+        }
+
+        function closeCartSidebar() {
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.getElementById('cartOverlay').classList.remove('open');
+        }
+
+        async function processCartPayment() {
+            if (cart.length === 0) { alert('Cart is empty'); return; }
+            const total = getCartTotal();
+            const orderNumber = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+            const itemsForOrder = cart.map(item => ({ name: item.name, price: parseFloat(item.price.replace(/[^0-9]/g, '')), quantity: item.quantity }));
+            const { error } = await supabaseClient.from('orders').insert([{ order_number: orderNumber, total: total, items: JSON.stringify(itemsForOrder), status: 'pending_payment' }]);
+            if (error) { alert('Error creating order'); return; }
+            window.location.href = `payment.html?order=${orderNumber}&total=${total}&cart=${encodeURIComponent(JSON.stringify(cart))}`;
+        }
+
+        function renderProducts(filter = "all") {
+            const grid = document.getElementById("productsGrid");
+            let filtered = filter === "all" ? products : filter === "below60" ? products.filter(p => p.kva < 60) : products.filter(p => p.kva >= 60);
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card" onclick="showProductDetails(${product.id})">
+                    <img class="product-img" src="${product.image}" onerror="this.src='https://picsum.photos/id/104/400/300'">
+                    <div class="product-info">
+                        <div class="product-title">${product.name}</div>
+                        <span class="product-brand">${product.brand}</span>
+                        <div class="product-price">${product.price}</div>
+                        <div class="product-features">⚡ ${product.features}</div>
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:${product.id}, name:'${product.name}', price:'${product.price}'});">Add to Cart</button>
+                        <button class="whatsapp-btn" onclick="event.stopPropagation(); contactWhatsApp('${product.name}', '${product.price}');">Chat on WhatsApp</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showProductDetails(id) {
+            const product = products.find(p => p.id === id);
+            currentProductForModal = product;
+            document.getElementById("modalImg").src = product.image;
+            document.getElementById("modalTitle").innerText = product.name;
+            document.getElementById("modalBrand").innerText = product.brand;
+            document.getElementById("modalPrice").innerText = product.price;
+            document.getElementById("modalSpecs").innerHTML = product.fullSpecs.map(s => `<li>✅ ${s}</li>`).join("");
+            document.getElementById("productModal").style.display = "flex";
+        }
+
+        function closeModal() { document.getElementById("productModal").style.display = "none"; }
+        function contactWhatsApp(name, price) { window.open(`https://wa.me/2349134186826?text=Hello NasTech,%0A%0AI am interested in: ${name} - ${price}.`, "_blank"); }
+        function openWhatsApp() { window.open("https://wa.me/2349134186826?text=Hello NasTech,%0A%0AI am interested in your generator sales/repair services.", "_blank"); }
+
+        function closeMenu() {
+            document.getElementById('sideMenu').classList.remove('open');
+            document.getElementById('menuOverlay').classList.remove('open');
+        }
+        function openMenu() { document.getElementById('sideMenu').classList.add('open'); document.getElementById('menuOverlay').classList.add('open'); }
+
+        function showHome() {
+            document.getElementById('homeSection').style.display = 'block';
+            document.getElementById('productsSection').classList.add('hidden');
+            document.getElementById('aboutSection').classList.add('hidden');
+            document.getElementById('contactSection').classList.add('hidden');
+            window.scrollTo({ top: 0 });
+        }
+        function showProducts() {
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('productsSection').classList.remove('hidden');
+            document.getElementById('aboutSection').classList.add('hidden');
+            document.getElementById('contactSection').classList.add('hidden');
+            renderProducts(currentFilter);
+            window.scrollTo({ top: 0 });
+        }
+        function showAbout() {
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('productsSection').classList.add('hidden');
+            document.getElementById('aboutSection').classList.remove('hidden');
+            document.getElementById('contactSection').classList.add('hidden');
+            window.scrollTo({ top: 0 });
+        }
+        function showContact() {
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('productsSection').classList.add('hidden');
+            document.getElementById('aboutSection').classList.add('hidden');
+            document.getElementById('contactSection').classList.remove('hidden');
+            window.scrollTo({ top: 0 });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCart();
+            showHome();
+            document.getElementById('menuBtn').addEventListener('click', openMenu);
+            document.getElementById('cartPayNowBtn').addEventListener('click', processCartPayment);
+            document.getElementById('modalWhatsappBtn').addEventListener('click', () => { if (currentProductForModal) contactWhatsApp(currentProductForModal.name, currentProductForModal.price); });
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentFilter = btn.dataset.filter;
+                    renderProducts(currentFilter);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

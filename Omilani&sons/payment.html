@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Complete Payment | NasTech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            color: #000000;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .payment-card {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 { 
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        h3 { 
+            font-size: 1.1rem;
+            margin: 20px 0 12px;
+        }
+
+        .order-number {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #8B2E2E;
+            background: #f8f8f8;
+            padding: 14px;
+            border-radius: 12px;
+            margin: 16px 0;
+            word-break: break-all;
+            text-align: center;
+        }
+
+        .bank-details, .shipping-form, .delivery-options {
+            background: #f8f8f8;
+            padding: 18px;
+            border-radius: 16px;
+            margin: 16px 0;
+        }
+
+        .bank-details p {
+            margin: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .delivery-options label {
+            display: block;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .delivery-options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #8B2E2E;
+        }
+
+        .address-fields {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #ddd;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0 14px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        button {
+            background: #8B2E2E;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .copy-btn { 
+            background: #25D366;
+            width: auto;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+
+        .back-btn { 
+            background: #666;
+        }
+
+        .warning {
+            color: #dc2626;
+            font-size: 0.75rem;
+            background: #fee2e2;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .error, .success, .loading {
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .error { background: #fee2e2; color: #dc2626; }
+        .success { background: #dcfce7; color: #16a34a; }
+        .loading { background: #fef3c7; color: #8B2E2E; }
+
+        .hidden { display: none; }
+
+        @media (min-width: 480px) {
+            body { padding: 40px; }
+            .payment-card { padding: 32px; }
+            h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <h2>Complete Your Order</h2>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 20px;">Fill in your details below</p>
+        
+        <div class="delivery-options">
+            <h3>Delivery Option</h3>
+            <label><input type="radio" name="deliveryType" value="pickup" onchange="toggleAddressFields()"> Pick up at our office (Lagos)</label>
+            <label><input type="radio" name="deliveryType" value="within_state" onchange="toggleAddressFields()"> Within State Delivery (Lagos)</label>
+            <label><input type="radio" name="deliveryType" value="interstate" onchange="toggleAddressFields()"> Interstate Delivery (Outside Lagos)</label>
+        </div>
+
+        <div id="addressFields" class="address-fields hidden">
+            <h3>Delivery Address</h3>
+            <label>State *</label>
+            <input type="text" id="state" placeholder="Enter state">
+            <label>Town/City *</label>
+            <input type="text" id="town" placeholder="Enter town/city">
+            <label>Full Address *</label>
+            <input type="text" id="address" placeholder="Street, building, landmark">
+        </div>
+        
+        <div class="shipping-form">
+            <h3>Your Information</h3>
+            <label>Full Name *</label>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+            <label>Phone Number *</label>
+            <input type="tel" id="phone" placeholder="Enter phone number">
+            <label>Email *</label>
+            <input type="email" id="email" placeholder="Enter email address">
+        </div>
+        
+        <div class="bank-details">
+            <p><strong>Bank:</strong> KUDA BANK</p>
+            <p><strong>Account Name:</strong> Omilani Wareez Adekunle</p>
+            <p><strong>Account Number:</strong> 2001367034 
+                <button class="copy-btn" onclick="copyAccount()" style="display: inline-block; width: auto; margin-left: 8px;">Copy</button>
+            </p>
+        </div>
+
+        <p style="font-weight: 600; margin-top: 8px;">Your Order Number (Use as reference):</p>
+        <div class="order-number" id="orderNumber">Loading...</div>
+        <button class="copy-btn" onclick="copyOrder()" style="background: #25D366;">Copy Order Number</button>
+
+        <p style="margin-top: 20px; color: #666; font-size: 0.8rem;">Make payment using your order number as reference</p>
+
+        <div class="warning">⏰ Order cancelled if payment not confirmed within 24 hours</div>
+
+        <button class="paid-btn" id="paidBtn">I Have Made Payment</button>
+        <button class="back-btn" onclick="window.location.href='/'">← Back to Home</button>
+        
+        <div id="status" style="margin-top: 16px;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        function toggleAddressFields() {
+            const selected = document.querySelector('input[name="deliveryType"]:checked');
+            const addressDiv = document.getElementById('addressFields');
+            if (selected && selected.value === 'pickup') addressDiv.classList.add('hidden');
+            else addressDiv.classList.remove('hidden');
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNumber = urlParams.get('order');
+        const totalAmount = urlParams.get('total') || '0';
+        
+        const orderElement = document.getElementById('orderNumber');
+        if (orderNumber && orderNumber !== 'null') orderElement.innerText = orderNumber;
+        else { orderElement.innerText = 'ERROR: No order found'; orderElement.style.color = '#dc2626'; }
+
+        function copyAccount() { navigator.clipboard.writeText('2001367034'); alert('Account number copied!'); }
+        function copyOrder() { if (orderNumber) { navigator.clipboard.writeText(orderNumber); alert('Order number copied: ' + orderNumber); } else alert('No order number'); }
+
+        const supabaseClient = supabase.createClient('https://tejpkjimizzbhylwzldm.supabase.co', 'sb_publishable_c_eyzM8vbpkZB41rDouMyQ_vIEQox3v');
+        emailjs.init('jw2pFeW1Jg6MySOyb');
+
+        async function sendAdminEmail(orderNumber, customerName, phone, email, address, deliveryType, total) {
+            return await emailjs.send('service_wrdt5bi', 'template_ifcgzfo', {
+                order_number: orderNumber, customer_name: customerName, customer_phone: phone,
+                customer_email: email, customer_address: address, delivery_type: deliveryType, total: total
+            });
+        }
+
+        function clearCartAfterPayment() { localStorage.removeItem('nastech_cart'); }
+
+        document.getElementById('paidBtn').addEventListener('click', async () => {
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const statusDiv = document.getElementById('status');
+            
+            const selectedDelivery = document.querySelector('input[name="deliveryType"]:checked');
+            if (!selectedDelivery) { statusDiv.innerHTML = '❌ Select delivery option'; statusDiv.className = 'error'; return; }
+            
+            const deliveryType = selectedDelivery.value;
+            let deliveryAddress = '';
+            if (deliveryType === 'pickup') deliveryAddress = 'Pick up at NasTech Office, Lagos';
+            else {
+                const state = document.getElementById('state').value.trim();
+                const town = document.getElementById('town').value.trim();
+                const address = document.getElementById('address').value.trim();
+                if (!state || !town || !address) { statusDiv.innerHTML = '❌ Fill all address fields'; statusDiv.className = 'error'; return; }
+                deliveryAddress = `${address}, ${town}, ${state}`;
+            }
+            
+            if (!fullName || !phone || !email) { statusDiv.innerHTML = '❌ Fill all your information'; statusDiv.className = 'error'; return; }
+            if (!orderNumber || orderNumber === 'null') { statusDiv.innerHTML = '❌ No order number found'; statusDiv.className = 'error'; return; }
+            
+            statusDiv.innerHTML = '⏳ Updating order...'; statusDiv.className = 'loading';
+            
+            const { error } = await supabaseClient.from('orders').update({ 
+                status: 'pending_verification', paid_at: new Date(), customer_name: fullName,
+                customer_address: deliveryAddress, customer_phone: phone, customer_email: email, delivery_type: deliveryType
+            }).eq('order_number', orderNumber);
+            
+            if (error) { statusDiv.innerHTML = '❌ Database error: ' + error.message; statusDiv.className = 'error'; return; }
+            
+            statusDiv.innerHTML = '⏳ Sending notification...';
+            await sendAdminEmail(orderNumber, fullName, phone, email, deliveryAddress, deliveryType, totalAmount);
+            clearCartAfterPayment();
+            statusDiv.innerHTML = '✅ Payment reported! Cart cleared. Admin will verify shortly.';
+            statusDiv.className = 'success';
+            document.getElementById('paidBtn').disabled = true;
+        });
+    </script>
+</body>
+</html>
